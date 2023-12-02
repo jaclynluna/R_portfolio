@@ -1,0 +1,49 @@
+#### Open relevant packages ####
+> library(ggplot2)
+> library(dplyr)
+> library(skimr)
+> library(gridExtra)
+
+#### Run summary statistics to gain a general understanding of the dataset ####
+
+#### Summary / Overview 
+
+> summary(edu)
+> head(edu,5)
+> tail(edu,5)
+> str(edu)
+> names(edu)
+
+### Check to see if there are any missing values in the dataset
+
+> sum(is.na(edu))
+
+#### Quick bar plots - analysis by gender ####
+
+##### Gender and IT Student Status
+
+chart_IT <- ggplot(edu, aes(x = Gender, fill = IT.Student)) +
+  geom_bar(position = "dodge", stat = "count") +
+  labs(title = "Gender and IT Students",
+       x = "Gender",
+       y = "Count") +
+  theme_minimal()
+
+##### Gender and Education Level
+chart_education <- ggplot(edu, aes(x = Education.Level, fill = Gender)) +
+  geom_bar(position = "dodge", stat = "count") +
+  labs(title = "Education Level by Gender",
+       x = "Education Level",
+       y = "Count") +
+  theme_minimal()
+
+#### Gender and Financial Condition
+chart_financial <- ggplot(edu, aes(x = Gender, fill = Financial.Condition)) +
+  geom_bar(position = "dodge", stat = "count") +
+  labs(title = "Financial Condition by Gender",
+       x = "Gender",
+       y = "Count") +
+  theme_minimal()
+
+#### Side-by-side bar charts
+grid.arrange(chart_IT, chart_education, chart_financial, ncol = 3)
