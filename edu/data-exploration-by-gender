@@ -1,27 +1,22 @@
-#### Open relevant packages ####
-> library(ggplot2)
-> library(dplyr)
-> library(skimr)
-> library(gridExtra)
+# Load necessary packages
+library(ggplot2)
+library(dplyr)
+library(skimr)
+library(gridExtra)
 
-#### Run summary statistics to gain a general understanding of the dataset ####
+# Display summary statistics and information about the dataset
+summary(edu)       # Summary statistics
+head(edu, 5)       # Display the first 5 rows
+tail(edu, 5)       # Display the last 5 rows
+str(edu)           # Display the structure of the dataset
+names(edu)         # Display column names
 
-#### Summary / Overview 
+# Check for missing values in the dataset
+sum(is.na(edu))
 
-> summary(edu)
-> head(edu,5)
-> tail(edu,5)
-> str(edu)
-> names(edu)
+# Quick bar plots - analysis by gender
 
-### Check to see if there are any missing values in the dataset
-
-> sum(is.na(edu))
-
-#### Quick bar plots - analysis by gender ####
-
-##### Gender and IT Student Status
-
+# Gender and IT Student Status
 chart_IT <- ggplot(edu, aes(x = Gender, fill = IT.Student)) +
   geom_bar(position = "dodge", stat = "count") +
   labs(title = "Gender and IT Students",
@@ -29,7 +24,7 @@ chart_IT <- ggplot(edu, aes(x = Gender, fill = IT.Student)) +
        y = "Count") +
   theme_minimal()
 
-##### Gender and Education Level
+# Gender and Education Level
 chart_education <- ggplot(edu, aes(x = Education.Level, fill = Gender)) +
   geom_bar(position = "dodge", stat = "count") +
   labs(title = "Education Level by Gender",
@@ -37,7 +32,7 @@ chart_education <- ggplot(edu, aes(x = Education.Level, fill = Gender)) +
        y = "Count") +
   theme_minimal()
 
-#### Gender and Financial Condition
+# Gender and Financial Condition
 chart_financial <- ggplot(edu, aes(x = Gender, fill = Financial.Condition)) +
   geom_bar(position = "dodge", stat = "count") +
   labs(title = "Financial Condition by Gender",
@@ -45,5 +40,5 @@ chart_financial <- ggplot(edu, aes(x = Gender, fill = Financial.Condition)) +
        y = "Count") +
   theme_minimal()
 
-#### Side-by-side bar charts
+# Display side-by-side bar charts
 grid.arrange(chart_IT, chart_education, chart_financial, ncol = 3)
